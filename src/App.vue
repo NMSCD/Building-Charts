@@ -23,7 +23,12 @@ function parseJson(rawJson: string) {
   try {
     const parsedJson: Base[] = JSON.parse(rawJson);
     isJsonInvalid.value = false;
-    const sortedJson = parsedJson.toSorted((a, b) => b.Objects.length - a.Objects.length);
+    const playerBases = parsedJson.filter((item) =>
+      ['HomePlanetBase', 'FreighterBase'].includes(item.BaseType.PersistentBaseTypes)
+    );
+    const freighter = playerBases.find((item) => item.BaseType.PersistentBaseTypes === 'FreighterBase');
+    if (freighter) freighter.Name = 'Freighter';
+    const sortedJson = playerBases.toSorted((a, b) => b.Objects.length - a.Objects.length);
     baseJson.value = sortedJson;
   } catch (error) {
     isJsonInvalid.value = true;

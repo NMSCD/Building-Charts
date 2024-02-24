@@ -6,6 +6,8 @@ const props = defineProps<{
   base: Base;
 }>();
 
+const isFreighterBase = props.base.BaseType.PersistentBaseTypes === 'FreighterBase';
+
 const uploadLimit = 3000;
 
 const isNotUploadable = computed(() => props.base.Objects.length >= uploadLimit);
@@ -13,7 +15,9 @@ const isNotUploadable = computed(() => props.base.Objects.length >= uploadLimit)
 
 <template>
   <div class="card p-4">
-    <div>Name: {{ base.Name }}</div>
+    <div>
+      Name: <span :class="{ 'is-italic': isFreighterBase }">{{ base.Name }}</span>
+    </div>
     <div>
       Parts:
       <span
