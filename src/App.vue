@@ -1,7 +1,71 @@
 <script setup lang="ts">
-console.log('Hello Eisvana!');
+import { computed, ref } from 'vue';
+import BaseList from './components/BaseList.vue';
+import type { Base } from '@/types/Base';
+import PartChart from './components/PartChart.vue';
+
+const isJsonInvalid = ref(false);
+const baseJson = ref<Base[]>([]);
+
+const totalBases = computed(() => baseJson.value.length);
+
+const totalPartsUsed = computed(() => {
+  const objectCounts = baseJson.value.map((base) => base.Objects.length);
+  return objectCounts.reduce((prev, cur) => prev + cur, 0);
+});
+
+function parseOnInput(e: Event) {
+  if (!(e.target instanceof HTMLTextAreaElement)) return;
+  parseJson(e.target.value);
+}
+
+function parseJson(rawJson: string) {
+  try {
+    const parsedJson: Base[] = JSON.parse(rawJson);
+    isJsonInvalid.value = false;
+    const sortedJson = parsedJson.toSorted((a, b) => b.Objects.length - a.Objects.length);
+    baseJson.value = sortedJson;
+  } catch (error) {
+    isJsonInvalid.value = true;
+    console.warn(error);
+  }
+}
 </script>
 
 <template>
-  <div>Hello Eisvana!</div>
+  <nav class="my-4 is-size-5">
+    <a
+      href=".."
+      title="Other pages"
+      >&larr; View other pages</a
+    >
+  </nav>
+  <h1 class="title is-3 has-text-centered">Building Charts</h1>
+  <div class="is-flex is-flex-direction-column">
+    <label
+      class="label"
+      for="json-input"
+      >Enter your PersistentPlayerBases JSON section here:</label
+    >
+    <textarea
+      class="textarea"
+      id="json-input"
+      @input="parseOnInput"
+    ></textarea>
+  </div>
+  <p v-if="isJsonInvalid">
+    Something went wrong. Please make sure you copied the whole PersistentPlayerBases JSON section.
+  </p>
+  <div
+    v-if="baseJson.length"
+    class="my-4"
+  >
+    <p>Total Number of Bases: {{ totalBases }}</p>
+    <p>Total Parts Used: {{ totalPartsUsed }}</p>
+    <BaseList :bases="baseJson" />
+    <PartChart
+      :bases="baseJson"
+      :total-parts="totalPartsUsed"
+    />
+  </div>
 </template>
