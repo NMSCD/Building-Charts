@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import BaseList from './components/BaseList.vue';
 import type { Base } from '@/types/Base';
 import PartChart from './components/PartChart.vue';
+import { maxObjects } from './constants/base';
 
 const isJsonInvalid = ref(false);
 const baseJson = ref<Base[]>([]);
@@ -14,6 +15,8 @@ const totalPartsUsed = computed(() => {
   return objectCounts.reduce((prev, cur) => prev + cur, 0);
 });
 
+const totalPartsUnused = computed(() => maxObjects - totalPartsUsed.value);
+
 function parseOnInput(e: Event) {
   if (!(e.target instanceof HTMLTextAreaElement)) return;
   parseJson(e.target.value);
@@ -23,7 +26,12 @@ function parseJson(rawJson: string) {
   try {
     const parsedJson: Base[] = JSON.parse(rawJson);
     isJsonInvalid.value = false;
-    const sortedJson = parsedJson.toSorted((a, b) => b.Objects.length - a.Objects.length);
+    const playerBases = parsedJson.filter((item) =>
+      ['HomePlanetBase', 'FreighterBase'].includes(item.BaseType.PersistentBaseTypes)
+    );
+    const freighter = playerBases.find((item) => item.BaseType.PersistentBaseTypes === 'FreighterBase');
+    if (freighter) freighter.Name = 'Freighter';
+    const sortedJson = playerBases.toSorted((a, b) => b.Objects.length - a.Objects.length);
     baseJson.value = sortedJson;
   } catch (error) {
     isJsonInvalid.value = true;
@@ -60,8 +68,11 @@ function parseJson(rawJson: string) {
     v-if="baseJson.length"
     class="my-4"
   >
+  <div class="stats is-flex is-flex-wrap-wrap">
     <p>Total Number of Bases: {{ totalBases }}</p>
     <p>Total Parts Used: {{ totalPartsUsed }}</p>
+    <p>Unused Parts: {{ totalPartsUnused }}</p>
+  </div>
     <BaseList :bases="baseJson" />
     <PartChart
       :bases="baseJson"
@@ -69,3 +80,9 @@ function parseJson(rawJson: string) {
     />
   </div>
 </template>
+
+<style scoped lang="scss">
+.stats {
+  gap: 2rem;
+}
+</style>
