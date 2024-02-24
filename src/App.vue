@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import BaseList from './components/BaseList.vue';
 import type { Base } from '@/types/Base';
 import PartChart from './components/PartChart.vue';
+import { maxObjects } from './constants/base';
 
 const isJsonInvalid = ref(false);
 const baseJson = ref<Base[]>([]);
@@ -13,6 +14,8 @@ const totalPartsUsed = computed(() => {
   const objectCounts = baseJson.value.map((base) => base.Objects.length);
   return objectCounts.reduce((prev, cur) => prev + cur, 0);
 });
+
+const totalPartsUnused = computed(() => maxObjects - totalPartsUsed.value);
 
 function parseOnInput(e: Event) {
   if (!(e.target instanceof HTMLTextAreaElement)) return;
@@ -65,8 +68,11 @@ function parseJson(rawJson: string) {
     v-if="baseJson.length"
     class="my-4"
   >
+  <div class="stats is-flex is-flex-wrap-wrap">
     <p>Total Number of Bases: {{ totalBases }}</p>
     <p>Total Parts Used: {{ totalPartsUsed }}</p>
+    <p>Unused Parts: {{ totalPartsUnused }}</p>
+  </div>
     <BaseList :bases="baseJson" />
     <PartChart
       :bases="baseJson"
@@ -74,3 +80,9 @@ function parseJson(rawJson: string) {
     />
   </div>
 </template>
+
+<style scoped lang="scss">
+.stats {
+  gap: 2rem;
+}
+</style>
