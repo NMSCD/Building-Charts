@@ -83,6 +83,6 @@ function parseJson(rawJson: string) {
 
 <style scoped lang="scss">
 .stats {
-  gap: 2rem;
+  gap: 0 2rem;
 }
 </style>
