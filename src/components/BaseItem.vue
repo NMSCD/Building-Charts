@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import type { Base } from '@/types/Base';
 import { computed } from 'vue';
+import { uploadLimit } from '@/constants/base';
 
 const props = defineProps<{
   base: Base;
 }>();
 
 const isFreighterBase = props.base.BaseType.PersistentBaseTypes === 'FreighterBase';
-
-const uploadLimit = 3000;
 
 const isNotUploadable = computed(() => props.base.Objects.length >= uploadLimit);
 </script>

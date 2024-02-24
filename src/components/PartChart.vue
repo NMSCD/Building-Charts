@@ -3,6 +3,8 @@ import type { Base } from '@/types/Base';
 import { computed, reactive } from 'vue';
 import { Pie } from 'vue-chartjs';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { minColourValue, maxColourValue } from '@/constants/colours';
+import { maxObjects } from '@/constants/base';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -16,16 +18,11 @@ function getRndInteger(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const minColourValue = 50;
-const maxColourValue = 255;
-
 function getRandomColour() {
   const rgb = Array.from({ length: 3 }).map(() => getRndInteger(minColourValue, maxColourValue));
   const hexCode = rgb.map((colour) => colour.toString(16)).join('');
   return `#${hexCode}`;
 }
-
-const maxObjects = 16000;
 
 const labels = computed(() => props.bases.map((base) => base.Name));
 const objectCounts = computed(() => props.bases.map((base) => base.Objects.length));
