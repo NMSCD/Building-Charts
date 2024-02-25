@@ -3,3 +3,9 @@ body {
   scrollbar-gutter: stable;
   font-family: sans-serif;
 }
+
+@media (max-width: 1023px) {
+  .container {
+    margin-inline: 1rem;
+  }
+}
