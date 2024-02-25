@@ -53,7 +53,7 @@ function parseJson(rawJson: string) {
     <label
       class="label"
       for="json-input"
-      >Enter your PersistentPlayerBases JSON section here:</label
+      >Copy your PersistentPlayerBases JSON section here:</label
     >
     <textarea
       class="textarea"
@@ -61,18 +61,22 @@ function parseJson(rawJson: string) {
       @input="parseOnInput"
     ></textarea>
   </div>
-  <p v-if="isJsonInvalid">
+
+  <p
+    v-if="isJsonInvalid"
+    class="has-background-danger has-text-white p-2 mt-2 error"
+  >
     Something went wrong. Please make sure you copied the whole PersistentPlayerBases JSON section.
   </p>
   <div
     v-if="baseJson.length"
     class="my-4"
   >
-  <div class="stats is-flex is-flex-wrap-wrap">
-    <p>Total Number of Bases: {{ totalBases }}</p>
-    <p>Total Parts Used: {{ totalPartsUsed }}</p>
-    <p>Unused Parts: {{ totalPartsUnused }}</p>
-  </div>
+    <div class="stats is-flex is-flex-wrap-wrap">
+      <p>Total Number of Bases: {{ totalBases }}</p>
+      <p>Total Parts Used: {{ totalPartsUsed }}</p>
+      <p>Unused Parts: {{ totalPartsUnused }}</p>
+    </div>
     <BaseList :bases="baseJson" />
     <PartChart
       :bases="baseJson"
@@ -84,5 +88,10 @@ function parseJson(rawJson: string) {
 <style scoped lang="scss">
 .stats {
   gap: 0 2rem;
+}
+
+.error {
+  width: fit-content;
+  border-radius: 5px;
 }
 </style>
