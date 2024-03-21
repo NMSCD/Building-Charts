@@ -43,6 +43,7 @@ function parseJson(rawJson: string) {
 <template>
   <nav class="my-4 is-size-5">
     <a
+      class="back-link"
       href=".."
       title="Other pages"
       >&larr; View other pages</a
@@ -93,5 +94,9 @@ function parseJson(rawJson: string) {
 .error {
   width: fit-content;
   border-radius: 5px;
+}
+
+.back-link:hover {
+  color: var(--bulma-link-text-hover);
 }
 </style>
