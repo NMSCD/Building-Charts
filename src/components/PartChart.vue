@@ -69,7 +69,7 @@ const options = {
   />
 </template>
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .chart {
   width: min(100%, 800px);
 }
