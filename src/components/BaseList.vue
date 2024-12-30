@@ -16,7 +16,7 @@ defineProps<{
   </div>
 </template>
 
-<style scoped lang="css">
+<style scoped>
 .base-list {
   gap: 0.5rem;
 }
