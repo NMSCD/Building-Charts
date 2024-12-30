@@ -13,7 +13,7 @@ const isNotUploadable = computed(() => props.base.Objects.length >= uploadLimit)
 </script>
 
 <template>
-  <div class="card p-4">
+  <div class="card p-4 mb-5">
     <div>
       Name: <span :class="{ 'is-italic': isFreighterBase }">{{ base.Name }}</span>
     </div>
