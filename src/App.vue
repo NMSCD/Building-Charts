@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import BaseList from './components/BaseList.vue';
 import type { Base } from '@/types/Base';
+import BaseList from './components/BaseList.vue';
 import PartChart from './components/PartChart.vue';
 import { maxObjects } from './constants/base';
 
@@ -27,7 +27,7 @@ function parseJson(rawJson: string) {
     const parsedJson: Base[] = JSON.parse(rawJson);
     isJsonInvalid.value = false;
     const playerBases = parsedJson.filter((item) =>
-      ['HomePlanetBase', 'FreighterBase'].includes(item.BaseType.PersistentBaseTypes)
+      ['HomePlanetBase', 'FreighterBase', 'PlayerSpaceStationBase'].includes(item.BaseType.PersistentBaseTypes)
     );
     const freighter = playerBases.find((item) => item.BaseType.PersistentBaseTypes === 'FreighterBase');
     if (freighter) freighter.Name = 'Freighter';

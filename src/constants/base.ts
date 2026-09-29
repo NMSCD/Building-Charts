@@ -1,2 +1,2 @@
-export const maxObjects = 16000;
+export const maxObjects = 16_000;
 export const uploadLimit = 3000;

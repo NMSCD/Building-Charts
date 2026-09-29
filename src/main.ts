@@ -1,4 +1,3 @@
-import 'bulma';
 import '@/styles/styles.css';
 import App from './App.vue';
 import { createApp } from 'vue';
