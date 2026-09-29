@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import BaseList from './components/BaseList.vue';
 import type { Base } from '@/types/Base';
+import BaseList from './components/BaseList.vue';
 import PartChart from './components/PartChart.vue';
 import { maxObjects } from './constants/base';
 

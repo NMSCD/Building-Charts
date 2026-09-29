@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Base } from '@/types/Base';
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import { computed, reactive } from 'vue';
+import { maxColourValue, minColourValue } from '@/constants/colours';
+import type { Base } from '@/types/Base';
 import { Pie } from 'vue-chartjs';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { minColourValue, maxColourValue } from '@/constants/colours';
 import { maxObjects } from '@/constants/base';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
