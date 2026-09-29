@@ -27,7 +27,7 @@ function parseJson(rawJson: string) {
     const parsedJson: Base[] = JSON.parse(rawJson);
     isJsonInvalid.value = false;
     const playerBases = parsedJson.filter((item) =>
-      ['HomePlanetBase', 'FreighterBase'].includes(item.BaseType.PersistentBaseTypes)
+      ['HomePlanetBase', 'FreighterBase', 'PlayerSpaceStationBase'].includes(item.BaseType.PersistentBaseTypes)
     );
     const freighter = playerBases.find((item) => item.BaseType.PersistentBaseTypes === 'FreighterBase');
     if (freighter) freighter.Name = 'Freighter';
