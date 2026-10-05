@@ -13,7 +13,7 @@
     "lint:ci": "oxlint --deny-warnings"
   },
   "devDependencies": {
-    "@types/node": "^26.6.1",
+    "@types/node": "^26.6.4",
     "@vitejs/plugin-vue": "^6.0.9",
     "oxfmt": "^0.70.0",
     "oxlint": "^1.83.0",
