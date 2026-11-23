@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/node": "^26.6.4",
     "@vitejs/plugin-vue": "^6.0.9",
-    "oxfmt": "^0.71.0",
+    "oxfmt": "^0.79.0",
     "oxlint": "^1.83.0",
     "sass-embedded": "^1.107.0",
     "typescript": "^6.0.3",
